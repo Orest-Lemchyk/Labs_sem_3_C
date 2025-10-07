@@ -1,19 +1,23 @@
 #include <stdio.h>
-#include <string.h>
 
-int main() {
-
-    char *fullName[3] = {"oLemchyko", "Orest", "Yuraovich"}
-    , *firstRow = fullName[0];
-    int countO = 0;
-
-    for (int i = 0; firstRow[i]; i++) {
-        if (firstRow[i] == 'o' || firstRow[i] == 'O') {
-            countO++;
+int countOO(char **arr, int size) {
+    int totalCount = 0;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; arr[i][j]; j++) {
+            if (arr[i][j] == 'o' || arr[i][j] == 'O') {
+                totalCount++;
+            }
         }
     }
+    return totalCount;
+}
 
-    printf("Number of letters 'o' in the first row: %d\n", countO);
+int main() {
+    char *fullName[3] = {"oLemchyko", "Orest", "Yuraovich"};
+
+    int countO = countOO(fullName, 3);
+
+    printf("Total number of letters 'o' in all rows: %d\n", countO);
 
     return 0;
 }

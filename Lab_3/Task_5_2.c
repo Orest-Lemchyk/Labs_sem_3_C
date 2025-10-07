@@ -1,28 +1,39 @@
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
+#include <time.h>
+
 #define N 5
 #define M 4
-int main() {
-    float A[N][M];
-    int i, j, x;
-    srand((unsigned)time(NULL));
-    puts("Array A:");
-    for (i = 0; i < N; i++) {
-        for (j = 0; j < M; j++) {
-            *(*(A + i) + j) = rand() % 201 * 0.1f + 10.5f;
-            printf("%8.1f", *(*(A + i) + j));
-        }
-        printf("\n");
-    }
-    for (i = 0; i < N; i++) {
-        for (j = 0; j < M; j++) {
-            if (A[i][j] > 15.5) {
-                x += 1;
+
+int count(float **A, int rows, int cols) {
+    int cnt = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (A[i][j] > 15.5f) {
+                cnt++;
             }
         }
     }
-    printf("the number of elements in the array that are greater than 15.5 is%d \n",x);
-    system("pause");
+    return cnt;
+}
+
+int main() {
+    float A[N][M];
+    float *ptrA[N];
+    srand((unsigned)time(NULL));
+
+    puts("Array A:");
+    for (int i = 0; i < N; i++) {
+        ptrA[i] = A[i];
+        for (int j = 0; j < M; j++) {
+            A[i][j] = 10.5f + (rand() % 201) * 0.1f;
+            printf("%8.1f", A[i][j]);
+        }
+        printf("\n");
+    }
+
+    int x = count(ptrA, N, M);
+    printf("The number of elements greater than 15.5 is %d\n", x);
+
     return 0;
 }
